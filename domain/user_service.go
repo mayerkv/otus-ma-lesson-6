@@ -31,7 +31,7 @@ func (s *UserService) GetUser(cmd *GetUserCommand) (*User, error) {
 	}
 
 	if user == nil {
-		return nil, NewEntityNotExists(fmt.Sprintf("user with id '%d' deos not exists", cmd.Id))
+		return nil, NewEntityNotExists(fmt.Sprintf("user with id '%d' does not exists", cmd.Id))
 	}
 
 	return user, nil
@@ -44,7 +44,7 @@ func (s *UserService) UpdateUser(cmd *UpdateUserCommand) (*User, error) {
 	}
 
 	if user == nil {
-		return nil, NewEntityNotExists(fmt.Sprintf("user with id '%d' deos not exists", cmd.Id))
+		return nil, NewEntityNotExists(fmt.Sprintf("user with id '%d' does not exists", cmd.Id))
 	}
 
 	if cmd.Email != "" {
@@ -74,7 +74,7 @@ func (s *UserService) DeleteUser(cmd *DeleteUserCommand) error {
 	}
 
 	if user == nil {
-		return NewEntityNotExists(fmt.Sprintf("user with id '%d' deos not exists", cmd.Id))
+		return NewEntityNotExists(fmt.Sprintf("user with id '%d' does not exists", cmd.Id))
 	}
 
 	return s.userRepository.Delete(user)

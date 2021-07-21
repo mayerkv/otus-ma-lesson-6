@@ -1,0 +1,6 @@
+postgresqlUsername: user
+postgresqlPassword: password
+postgresqlDatabase: users
+
+persistence:
+  size: 1Gi

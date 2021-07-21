@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "867cd937-52bf-4d6c-8eee-634a6eef3805",
+		"name": "User Service",
+		"description": "This is simple client API\n\n\nContact Support:\n Email: schetinnikov@gmail.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function() {",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.contains('application/json');",
+									"});",
+									"",
+									"var schema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"id\": {",
+									"            \"type\": \"number\"",
+									"        },",
+									"        \"username\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"firstName\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"lastName\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"email\": {",
+									"            \"type\": \"string\",",
+									"            \"format\": \"email\"",
+									"        },",
+									"        \"phone\": {",
+									"            \"type\": \"string\",",
+									"            \"format\": \"phone\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"id\",",
+									"        \"username\",",
+									"        \"firstName\",",
+									"        \"lastName\",",
+									"        \"email\",",
+									"        \"phone\"",
+									"    ]",
+									"};",
+									"",
+									"pm.test('Schema is valid', function () {",
+									"    var jsonData = pm.response.json();",
+									"",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.collectionVariables.set('userId', jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"johndoe589\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"bestjohn@doe.com\",\n    \"phone\": \"+71002003040\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "This can only be done by the logged in user."
+					},
+					"response": []
+				},
+				{
+					"name": "find user by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function() {",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.contains('application/json');",
+									"});",
+									"",
+									"var schema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"id\": {",
+									"            \"type\": \"number\"",
+									"        },",
+									"        \"username\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"firstName\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"lastName\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"email\": {",
+									"            \"type\": \"string\",",
+									"            \"format\": \"email\"",
+									"        },",
+									"        \"phone\": {",
+									"            \"type\": \"string\",",
+									"            \"format\": \"phone\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"id\",",
+									"        \"username\",",
+									"        \"firstName\",",
+									"        \"lastName\",",
+									"        \"email\",",
+									"        \"phone\"",
+									"    ]",
+									"};",
+									"",
+									"pm.test('Schema is valid', function () {",
+									"    var jsonData = pm.response.json();",
+									"",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						},
+						"description": "Returns a user based on a single ID, if the user does not have access to the user"
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function() {",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.contains('application/json');",
+									"});",
+									"",
+									"var schema = {",
+									"    \"type\": \"object\",",
+									"    \"properties\": {",
+									"        \"id\": {",
+									"            \"type\": \"number\"",
+									"        },",
+									"        \"username\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"firstName\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"lastName\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"email\": {",
+									"            \"type\": \"string\",",
+									"            \"format\": \"email\"",
+									"        },",
+									"        \"phone\": {",
+									"            \"type\": \"string\",",
+									"            \"format\": \"phone\"",
+									"        }",
+									"    },",
+									"    \"required\": [",
+									"        \"id\",",
+									"        \"username\",",
+									"        \"firstName\",",
+									"        \"lastName\",",
+									"        \"email\",",
+									"        \"phone\"",
+									"    ]",
+									"};",
+									"",
+									"pm.test('Schema is valid', function () {",
+									"    var jsonData = pm.response.json();",
+									"",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Julie\",\n    \"lastName\": \"Doe\",\n    \"email\": \"bestjohn@doe.com\",\n    \"phone\": \"+71004242424\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						},
+						"description": "Update user with User ID supplied"
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/user/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						},
+						"description": "deletes a single user based on the ID supplied"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://arch.homework"
+		},
+		{
+			"key": "userId",
+			"value": ""
+		}
+	]
+}

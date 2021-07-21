@@ -30,3 +30,8 @@ or
 ```shell
 kubectl apply -f .kube
 ```
+
+### Run tests
+```shell
+newman run user_service.postman_collection.json
+```

@@ -5,7 +5,7 @@ otus-ma-lesson-6
 
 ```shell
 REPO=kvmayer/otus-ma-lesson-6
-TAG=0.1.0
+TAG=0.1.1
 ARCH=linux/amd64,linux/arm64
 docker buildx build --platform $ARCH -t $REPO:$TAG --push .
 ```
@@ -21,7 +21,6 @@ helm install postgres bitnami/postgresql --values .helm-postgres/postgres-values
 kubectl apply -f .kube/secret.yaml
 kubectl apply -f .kube/configmap.yaml
 kubectl apply -f .kube/db-migrations-job.yaml
-kubectl apply -f .kube/deployment.yaml
 kubectl apply -f .kube/deployment.yaml
 kubectl apply -f .kube/service.yaml
 kubectl apply -f .kube/ingress.yaml

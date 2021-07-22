@@ -4,3 +4,11 @@ postgresqlDatabase: users
 
 persistence:
   size: 1Gi
+
+image:
+  tag: 12.7.0
+
+resources:
+  requests:
+    memory: 512Mi
+    cpu: 250m

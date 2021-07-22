@@ -22,10 +22,10 @@ func createDb(config *common.Config) (*sqlx.DB, error) {
 		return nil, err
 	}
 
+	db.SetMaxOpenConns(2)
+	db.SetMaxIdleConns(1)
 	db.SetConnMaxLifetime(60 * time.Second)
-	db.SetMaxOpenConns(10)
 	db.SetConnMaxIdleTime(60 * time.Second)
-	db.SetMaxIdleConns(50)
 
 	return db, nil
 }

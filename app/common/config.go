@@ -1,19 +1,31 @@
 package common
 
-import "os"
+import (
+	"os"
+	"strconv"
+)
 
 type Config struct {
-	DbDsn string
-	Addr  string
+	DbDsn         string
+	GracefulDelay int
 }
 
-func NewConfig(dbDsn, addr string) *Config {
+func NewConfig(dbDsn string, d int) *Config {
 	return &Config{
-		DbDsn: dbDsn,
-		Addr:  addr,
+		DbDsn:         dbDsn,
+		GracefulDelay: d,
 	}
 }
 
 func ConfigFromEnv() *Config {
-	return NewConfig(os.Getenv("DB_DSN"), os.Getenv("ADDR"))
+	dsn := os.Getenv("DB_DSN")
+	if dsn == "" {
+		dsn = "postgresql://postgres:@localhost:5432/users"
+	}
+	delay, err := strconv.Atoi(os.Getenv("GRACEFUL_DELAY"))
+	if err != nil {
+		delay = 5
+	}
+
+	return NewConfig(dsn, delay)
 }

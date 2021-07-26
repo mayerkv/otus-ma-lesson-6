@@ -70,7 +70,7 @@ func runWebServer(router *gin.Engine, config *common.Config) {
 	})
 
 	srv := &http.Server{
-		Addr:         config.Addr,
+		Addr:         "0.0.0.0:80",
 		Handler:      router,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
@@ -88,14 +88,14 @@ func runWebServer(router *gin.Engine, config *common.Config) {
 
 	log.Println("Shutdown Server ...")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.GracefulDelay)*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown:", err)
 	}
 	select {
 	case <-ctx.Done():
-		log.Println("timeout of 3 seconds.")
+		log.Printf("timeout of %d seconds.", config.GracefulDelay)
 	}
 	log.Println("Server exiting")
 }

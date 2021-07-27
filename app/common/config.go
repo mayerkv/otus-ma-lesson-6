@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"os"
 	"strconv"
 )
@@ -18,7 +19,14 @@ func NewConfig(dbDsn string, d int) *Config {
 }
 
 func ConfigFromEnv() *Config {
-	dsn := os.Getenv("DB_DSN")
+	dsn := fmt.Sprintf(
+		"postgresql://%s:%s@%s:%s/%s",
+		os.Getenv("DB_USERNAME"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_PORT"),
+		os.Getenv("DB_DATABASE"),
+	)
 	if dsn == "" {
 		dsn = "postgresql://postgres:@localhost:5432/users"
 	}

@@ -5,7 +5,7 @@ otus-ma-lesson-6
 
 ```shell
 REPO=kvmayer/otus-ma-lesson-6
-TAG=0.1.4
+TAG=0.1.5
 ARCH=linux/amd64,linux/arm64
 docker buildx build --platform $ARCH -t $REPO:$TAG --push .
 ```

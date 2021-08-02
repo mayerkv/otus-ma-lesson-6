@@ -31,6 +31,7 @@ func main() {
 		di.ProvideRepository,
 		di.ProvideRouter,
 		di.ProvideService,
+		di.ProvideMetrics,
 	}
 	container := dig.New()
 	for _, provide := range providers {
@@ -63,12 +64,6 @@ func main() {
 }
 
 func runWebServer(router *gin.Engine, config *common.Config) {
-	router.GET("/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"status": "OK",
-		})
-	})
-
 	srv := &http.Server{
 		Addr:         "0.0.0.0:80",
 		Handler:      router,

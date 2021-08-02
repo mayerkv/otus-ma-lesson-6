@@ -1,0 +1,25 @@
+replicaCount: 2
+
+image:
+  repository: kvmayer/otus-ma-lesson-6
+  tag: 0.1.13
+
+service:
+  type: LoadBalancer
+  port: 80
+
+gracefulDeleay: 5
+
+postgresql:
+  enabled: true
+  postgresqlUsername: myuser
+  postgresqlPassword: passwd
+  postgresqlDatabase: myapp
+  service:
+    port: "5432"
+  persistence:
+    size: "1Gi"
+
+ingress:
+  host: arch.homework
+  path: /user
